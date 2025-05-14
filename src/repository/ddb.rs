@@ -30,7 +30,7 @@ fn item_value(key: &str, item: &HashMap<String, AttributeValue>) -> Result<Optio
     }
 }
 fn item_to_task(item: &HashMap<String, AttributeValue>) -> Result<Task, DDBError> {
-    let state: TaskState = match TaskState::from_str(required_item_value("state", item)?.as_str()) {
+    let state: TaskState = match TaskState::from_str(require_item_value("state", item)?.as_str()) {
         Ok(value) => value,
         Err(_) => return Err(DDBError)
     };
@@ -38,11 +38,11 @@ fn item_to_task(item: &HashMap<String, AttributeValue>) -> Result<Task, DDBError
     let result_file = item_value("result_file", item)?;
 
     Ok(Task {
-        user_uuid: required_item_value("pK", item)?,
-        task_uuid: required_item_value("sK", item)?,
-        task_type: required_item_value("task_type", item)?,
-        state,
-        source_file: required_item_value("source_file", item)?,
+        user_uiid: require_item_value("pK", item)?,
+        task_uiid: require_item_value("sK", item)?,
+        task_type: require_item_value("task_type", item)?,
+        state : state,
+        source_file: require_item_value("source_file", item)?,
         result_file
     })
 }
@@ -59,8 +59,8 @@ impl DDBRepository {
         dbg!(&task);
         let mut request = self.client.put_item()
             .table_name(&self.table_name)
-            .item("pK", AttributeValue::S(String::from(task.user_uuid)))
-            .item("sK", AttributeValue::S(String::from(task.task_uuid)))
+            .item("pK", AttributeValue::S(String::from(task.user_uiid)))
+            .item("sK", AttributeValue::S(String::from(task.task_uiid)))
             .item("task_type", AttributeValue::S(String::from(task.task_type)))
             .item("state", AttributeValue::S(task.state.to_string()))
             .item("source_file", AttributeValue::S(String::from(task.source_file)));
