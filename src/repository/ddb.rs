@@ -1,6 +1,6 @@
 use aws_sdk_dynamodb::Client;
-use aws_sdk_dynamodb::model::AttributeValue;
-use aws_config::Config;
+use aws_sdk_dynamodb::types::AttributeValue;
+use crate::config::Config;
 use crate::model::task::{Task, TaskState};
 use log::error;
 use std::str::FromStr;

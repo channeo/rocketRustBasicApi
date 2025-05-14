@@ -4,9 +4,6 @@ mod model;
 use aws_sdk_dynamodb::config;
 use repository::ddb::{self, DDBRepository};
 use api::task::{
-    get_task
-};
-use api::task::{
     get_task,submit_task,start_task,complete_task,pause_task,fail_task
 };
 use actix_web::{web::Data, App, HttpServer, middleware::Logger};

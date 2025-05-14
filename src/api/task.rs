@@ -1,8 +1,7 @@
 use core::task;
 use std::result;
 
-use crate::{model::task::{self, Task, TaskState}, repository::ddb::DDBRepository};
-use crate::repository::ddb::DDBRepository;
+use crate::{model::task::{self as other_task, Task, TaskState}, repository::ddb::DDBRepository};
 use actix_web::{
     get,
     post,
@@ -114,7 +113,7 @@ pub async fn start_task(
     ddb_repo: Data<DDBRepository>,
     task_identifier: Path<TaskIdentifier>,
 )-> Result<Json<TaskIdentifier>,TaskError>{
-    state_transition(ddb_repo, task_identifier.into_inner().task_global_id, TaskState::InProgress,Some(completion_request.result_file.clone())).await
+    state_transition(ddb_repo, task_identifier.into_inner().task_global_id, TaskState::InProgress,None).await
 }
 #[put("/task/{task_global_id}/pause")]
 pub async fn pause_task(
