@@ -5,6 +5,7 @@ use crate::model::task::{Task, TaskState};
 use log::error;
 use std::str::FromStr;
 use std::collections::HashMap;
+use aws_types::SdkConfig;  
 
 pub struct DDBRepository {
     client: Client,
@@ -47,7 +48,7 @@ fn item_to_task(item: &HashMap<String, AttributeValue>) -> Result<Task, DDBError
     })
 }
 impl DDBRepository {
-    pub fn init(table_name: String, config: Config) -> DDBRepository {
+    pub fn init(table_name: String, config: SdkConfig) -> DDBRepository {
         let client = Client::new(&config);
         DDBRepository {
             table_name,

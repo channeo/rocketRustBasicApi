@@ -16,7 +16,7 @@ async fn main() -> std::io::Result<()>{
     }
     env_logger::init();
     let config = aws_config::load_from_env().await;
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         let ddb_repo : DDBRepository = DDBRepository::init("task".to_string(), config.clone());
         let ddb_data = Data::new(ddb_repo);
         let logger: Logger = Logger::default();

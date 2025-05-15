@@ -1377,6 +1377,7 @@ dependencies = [
  "actix-web",
  "aws-config",
  "aws-sdk-dynamodb",
+ "aws-types",
  "derive_more 0.99.20",
  "env_logger",
  "log",

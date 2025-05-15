@@ -15,3 +15,4 @@ log = "0.4.21"                           # Logging interface
 strum_macros = "0.26.1"                  # Enum macro derivations
 strum = { version = "0.26.1", features = ["derive"] }   # Enum utilities
 derive_more = "0.99.17"                  # More #[derive] macros
+aws-types        = "1.1"
